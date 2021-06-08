@@ -1,0 +1,66 @@
+﻿@model ProductMaster
+
+@{
+    Layout = null;
+}
+<tr>
+
+    @using (Html.BeginCollectionItem("Products"))
+    {
+
+    <td>
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="GroupId" />
+      
+        <div class="form-group input-field">
+            <label asp-for="Model"></label>
+            <input asp-for="Model" for="Model" class="form-control validate" />
+            <span asp-validation-for="Model" class="helper-text red-text"></span>
+        </div>
+
+    </td>
+        <td>
+            <div class="form-group input-field">
+                <label asp-for="PartCode"></label>
+                <input asp-for="PartCode" for="PartCode" class="form-control validate" />
+                <span asp-validation-for="PartCode" class="helper-text red-text"></span>
+            </div>
+
+        </td>
+        <td>
+            <div class="form-group input-field">
+                <label asp-for="SerialCode"></label>
+                <input asp-for="SerialCode" for="SerialCode" class="form-control validate" />
+                <span asp-validation-for="SerialCode" class="helper-text red-text"></span>
+            </div>
+
+        </td>
+        <td>
+            <div class="form-group input-field">
+                <label asp-for="Description"></label>
+                <input asp-for="Description" for="Description" class="form-control validate" />
+                <span asp-validation-for="Description" class="helper-text red-text"></span>
+            </div>
+
+        </td>
+        <td>
+            <div class="file-field input-field">
+                <div class="btn">
+                    <span>File</span>
+                    <input type="file" asp-for="ImageDetail.ImageModel">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text">
+                </div>
+            </div>
+
+        </td>
+        <td>
+            <a class="btn-floating btn-sm waves-effect waves-light red removeGroupItem"><i class="material-icons">delete</i></a>
+        </td>
+
+
+    }
+</tr>
+
+

@@ -1,0 +1,173 @@
+﻿@page
+@model ExternalLoginModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h4>@ViewData["Title"]</h4>
+<h5>Associate your @Model.LoginProvider account.</h5>
+<hr />
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <form asp-page-handler="Confirmation" asp-route-returnUrl="@Model.ReturnUrl" method="post" id="registerForm">
+            @*<div asp-validation-summary="All" class="text-danger"></div>*@
+
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="form-group">
+                        <label asp-for="Input.Name"></label>
+                        <input readonly asp-for="Input.Name" class="form-control" />
+                        <span asp-validation-for="Input.Name" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="form-group">
+                        <label asp-for="Input.GivenName"></label>
+                        <input readonly asp-for="Input.GivenName" class="form-control" />
+                        <span asp-validation-for="Input.GivenName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="form-group">
+                        <label asp-for="Input.SurName"></label>
+                        <input readonly asp-for="Input.SurName" class="form-control" />
+                        <span asp-validation-for="Input.SurName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="form-group">
+                        <label asp-for="Input.DateOfBirth"></label>
+                        <input readonly asp-for="Input.DateOfBirth" class="form-control" />
+                        <span asp-validation-for="Input.DateOfBirth" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="form-group">
+                        <label asp-for="Input.Email"></label>
+                        <input readonly asp-for="Input.Email" class="form-control" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="form-group">
+                        <label asp-for="Input.MobileNumber"></label>
+                        <input asp-for="Input.MobileNumber" class="form-control" />
+                        <span asp-validation-for="Input.MobileNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="form-group">
+                        <label asp-for="Input.CompanyName"></label>
+                        <input asp-for="Input.CompanyName" class="form-control" />
+                        <span asp-validation-for="Input.CompanyName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="form-group">
+                        <label asp-for="Input.CompanyAddress"></label>
+                        <input asp-for="Input.CompanyAddress" class="form-control" />
+                        <span asp-validation-for="Input.CompanyAddress" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="form-group">
+                        <label asp-for="Input.Designation"></label>
+                        <input asp-for="Input.Designation" class="form-control" />
+                        <span asp-validation-for="Input.Designation" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </form>
+        <button type="button" class="btn btn-primary modal-trigger" data-target="modal1">Register</button>
+    </div>
+</div>
+
+
+
+
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <h4>Data Privacy Conditions</h4>
+        <p><h5>Definitions</h5>
+        <p><strong>Service</strong></p>
+        <p>Service is the promo.civicmdsg.com.ph/filterkit website operated by Civic Group of Companies.</p>
+        <p><strong>Personal Data</strong></p>
+        <p>Personal Data means data about a living individual who can be identified from those data (or from those and other information either in our possession or likely to come into our possession).</p>
+        <p><strong>Usage Data</strong></p>
+        <p>Usage Data is data collected automatically either generated by the use of the Service or from the Service infrastructure itself (for example, the duration of a page visit).</p>
+        <p><strong>Cookies</strong></p>
+        <p>Cookies are small files stored on your device (computer or mobile device).</p>
+        <h4>Types of Data Collected</h4>
+        <h5>Personal Data</h5>
+        <p>While using our Service, we may ask you to provide us with certain personally identifiable information that can be used to contact or identify you ("Personal Data"). Personally identifiable information may include, but is not limited to:</p>
+        <ul>
+            <li>● First name and last name</li>
+            <li>● Email address</li>
+            <li>● Phone number</li>
+            <li>● Company Name</li>
+            <li>● Company Address, State, Province, ZIP/Postal code, City</li>
+        </ul>
+        <h5>Information Collection and Use of Data</h5>
+        <p>Civic Group of Companies uses the collected data for various purposes:</p>
+        <ul>
+            <li>● To verify and qualify you for the &ldquo;Genuine Volvo Filter Kit Promo&rdquo;</li>
+            <li>● To provide and maintain the Service</li>
+            <li>● To notify you about changes to our Service</li>
+            <li>● To allow you to participate in interactive features of our Service</li>
+            <li>● To provide customer care and support</li>
+            <li>● To provide analysis or valuable information so that we can improve the Service</li>
+            <li>● To monitor the usage of the Service</li>
+            <li>● To detect, prevent and address technical issues</li>
+            <li>● To send the latest updates of Civic Group of Companies via email</li>
+        </ul>
+
+
+
+        </p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="waves-effect waves-green btn-flat" id="agreeButton">Agree</a>
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Disagree</a>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('.modal').modal();
+
+            $('#agreeButton').on('click', function () {
+                $('#registerForm').submit();
+
+            })
+
+        })
+
+
+    </script>
+}

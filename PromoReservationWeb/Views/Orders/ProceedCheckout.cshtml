@@ -1,0 +1,110 @@
+﻿@model ICollection<ProductMasterWithHour>
+@{
+    ViewData["Title"] = "For Check out";
+}
+
+<h4>Check out</h4>
+
+<table class="striped highlight">
+    <thead>
+        <tr>
+            <th>
+                Model
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                SerialCode
+            </th>
+            <th>
+                Part Code
+            </th>
+            <th>
+                Hours
+            </th>
+            <th>
+                Quantity
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Model
+                    </td>
+                    <td>
+                        @item.Description
+                    </td>
+                    <td>
+                        @item.SerialCode
+                    </td>
+                    <td>
+                        @item.PartCode
+                    </td>
+                    <td>
+                        @item.Hours
+                    </td>
+                    <td>
+                        @item.Quantity
+                    </td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
+<div class="row">
+    &nbsp;
+</div>
+<hr />
+<div class="row">
+    <h5>Terms and Condition</h5>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <p>
+            <b> 1.</b>	This promotion is valid during an onsite events of Civic Merchandising Inc. & Topspot Heavy Equipment Inc. until December 31, 2019 only.
+            <br />
+            <b> 2.</b>	Promo is open to all Civic Merchandising Inc. & Topspot Heavy Equipment Inc. including consignment warehouses existing and potential customers, nationwide.
+            <br />
+            <b> 3.</b>	For every confirmed order of Volvo PM Kit during an event of Civic Merchandising Inc. & Topspot Heavy Equipment Inc. will receive a limited edition Volvo merchandise.
+            <br />
+            <b> 4.</b>	For the onsite event, customer must fill-out the Confirmed Order Form provided by our sales representatives during the event for documentation to qualify the promo.
+            <br />
+            <b> 5.</b>	For online ordering, customer may visit our online portal (promo.civicmdsg.com.ph/filterkit) and fill-out the confirmation order form to qualify the promo. It may only be accessed when a Civic Merchandising Inc. & Topspot Heavy Equipment Inc. event is on-going.
+            <br />
+            <b> 6.</b>	Any signed and submitted confirmation order form will serve as a purchase order.
+            <br />
+            <b> 7.</b>	Genuine Volvo Filter Kit Order Promo is applicable nationwide.
+            <br />
+            <b> 8.</b>	If redemption is found to be invalid or if customer is found to have double Sales Invoice with same number during the promo period; Cancellation of redemption, change of item or redemption outlet is NOT allowed once redemption is processed. Redemption shall be deemed permanent.
+            <br />
+            <b> 9.</b>	Merchandise are not exchangeable for cash and not for sale.
+            <br />
+            <b> 10.</b>	Civic Merchandising Inc., Topspot heavy Equipment Inc. reserves the right to change, amend or cancel this promotion without prior notice.
+            <br />
+            <b> 11.</b>	By participating in the promo, the Customer agrees to voluntarily surrender the photocopy of Purchase Order/Confirmed Order Form and Sales Invoice/s to the Redemption Branches upon redemption of the Volvo merchandise.
+            <br />
+            <b> 12.</b>	All merchandise are on a first come, first served basis and while stocks last.
+
+        </p>
+    </div>
+</div>
+
+
+<hr />
+<div class="row ">
+    <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 right-align">
+        <a asp-action="PlaceOrder" class=" btn waves-effect waves-light">
+            Place Order
+            <i class="material-icons right">send</i>
+        </a>
+    </div>
+</div>

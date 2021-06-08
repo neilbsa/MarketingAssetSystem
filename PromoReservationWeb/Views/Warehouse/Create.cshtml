@@ -1,0 +1,42 @@
+﻿@model Warehouse
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h3>Create Warehouse</h3>
+<hr />
+
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <form asp-action="Create" method="post">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                
+                    <div class="form-group input-field">
+                        <label asp-for="WarehouseCode"></label>
+                        <input asp-for="WarehouseCode" for="WarehouseCode" class="form-control validate" />
+                        <span asp-validation-for="WarehouseCode" class="helper-text red-text"></span>
+                    </div>
+
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+
+                    <div class="form-group input-field">
+                        <label asp-for="WarehouseDescription"></label>
+                        <input asp-for="WarehouseDescription" for="WarehouseDescription" class="form-control validate" />
+                        <span asp-validation-for="WarehouseDescription" class="helper-text red-text"></span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <button type="submit" class="waves-button-input btn"> Submit</button>
+            </div> <hr />
+           
+        </form>
+
+
+    </div>
+
+</div>

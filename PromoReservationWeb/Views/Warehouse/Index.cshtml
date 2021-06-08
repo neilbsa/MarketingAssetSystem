@@ -1,0 +1,59 @@
+﻿@model ICollection<Warehouse>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>Index</h3>
+
+<table class="striped">
+    <thead>
+        <tr>
+            <th>
+                Warehouse Code
+            </th>
+            <th>
+                Warehouse Description
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.WarehouseCode
+                </td>
+                <td>
+                    @item.WarehouseDescription
+                </td>
+                <td>
+                    @*<a asp-action="edit">
+                            <i class="material-icons">edit</i>
+                        </a>*@
+
+
+                    <a class="btn-floating btn-sm waves-effect waves-light blue" asp-action="Edit" asp-route-Id="@item.Id"><i class="material-icons">edit</i></a>
+
+                    <a class="btn-floating btn-sm waves-effect waves-light red"><i class="material-icons">delete</i></a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large waves-effect waves-light red" asp-action="Create">
+        <i class="large material-icons">mode_edit</i>
+    </a>
+</div>
+@section scripts{
+    <script>
+
+
+
+
+    </script>
+}

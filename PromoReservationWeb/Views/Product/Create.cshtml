@@ -1,0 +1,155 @@
+﻿@model ProductGroup
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+
+
+
+<h3>Create Group</h3>
+<hr />
+
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group input-field">
+                        <label asp-for="GroupName"></label>
+                        <input asp-for="GroupName" for="GroupName" class="form-control validate" />
+                        <span asp-validation-for="GroupName" class="helper-text red-text"></span>
+                    </div>
+
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+
+                    <div class="form-group input-field">
+                        <label asp-for="ProductDescription"></label>
+                        <input asp-for="ProductDescription" for="GroupName" class="form-control validate" />
+                        <span asp-validation-for="ProductDescription" class="helper-text red-text"></span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <button type="submit" class="waves-button-input btn"> Submit</button>
+            </div> <hr />
+            <h3>Distinction</h3>
+            <hr />
+            <table class="striped" id="distinctionTable">
+                <thead>
+                    <tr>
+                        <th>
+                            Distinctions
+                        </th>
+                       
+                        <th></th>
+
+
+                    </tr>
+
+                </thead>
+                <tbody>
+                    @if (Model.Distinctions != null)
+                    {
+                        foreach (var item in Model.Distinctions)
+                        {
+                            <partial name="GroupDistinctionsCreate" for="@item" />
+                        }
+                    }
+
+                </tbody>
+            </table>
+            <button type="button" class="btn-floating btn-sm waves-effect waves-light red addNewDestinctions"><i class="material-icons">add</i> </button>
+            <hr />
+            <h3>Product Items</h3>
+            <hr />
+            <table class="striped" id="groupItem">
+                <thead>
+                    <tr>
+                        <th>
+                            Model
+                        </th>
+
+
+                        <th>
+                            Part Code
+                        </th>
+                        <th>
+                            Serial Code
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th></th>
+
+
+                    </tr>
+
+                </thead>
+                <tbody>
+                    @if (Model.Products != null)
+                    {
+                        foreach (var item in Model.Products)
+                        {
+                            <partial name="ProductGroupItemCreate" for="@item" />
+                        }
+                    }
+
+                </tbody>
+            </table>
+
+        </form>
+        <button type="button" class="btn-floating btn-sm waves-effect waves-light red addNewItem"><i class="material-icons">add</i> </button>
+
+    </div>
+
+</div>
+
+
+
+@section scripts{
+    <script>
+       $(document).ready(function () {
+
+           $('#groupItem').on('click', '.removeGroupItem', function () {
+               var item = $(this).parent().parent().remove();
+           })
+
+
+           $('.addNewItem').on('click', function () {
+
+               var options = {
+                   url: "@Url.Action("AddNewItem")",
+                   datatype:"HTML",
+                   success: function (data) {
+                       console.log(data);
+                       $('#groupItem > tbody').append(data)
+                   }
+               }
+
+               $.ajax(options);
+
+           })
+
+            $('.addNewDestinctions').on('click', function () {
+
+               var options = {
+                   url: "@Url.Action("GroupDistinctions")",
+                   datatype:"HTML",
+                   success: function (data) {
+                       console.log(data);
+                       $('#distinctionTable > tbody').append(data)
+                   }
+               }
+
+               $.ajax(options);
+
+           })
+
+       })
+    </script>
+}

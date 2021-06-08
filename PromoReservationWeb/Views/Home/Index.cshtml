@@ -1,0 +1,173 @@
+﻿@model ICollection<ProductMaster>
+
+@{
+    ViewData["Title"] = " GENUINE VOLVO FILTER KIT PROMO";
+}
+
+<div class="row">
+    <div class="col-xs-12 col-xs-12 col-md-12 col-lg-12" style="font-size:30px;">
+        <b>GENUINE VOLVO FILTER KIT PROMO</b>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="jumbotron col-xs-12 col-sm-12 col-md-12 col-lg-12" >
+            <img src="~/images/FILTER KIT WEB BANNER-02.jpg" style="min-width:100%; min-height:100%; max-width:100%; max-height:100%;padding:0px;" />
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-4">
+        <div class="input-field">
+            <i class="material-icons prefix">search</i>
+            <input id="searchItem" placeholder="Search Keyword" type="text">
+            @*<label for="searchItem">Search</label>*@
+        </div>
+    </div>
+</div>
+
+<div class="row" id="productList">
+
+
+
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-12 col-xs-12 col-md-6 col-lg-4 productItem scale-transition">
+            <div class="card">
+                <div class="card-image">
+                    @if (item.ImageDetail != null)
+                    {
+                        <img src="@String.Format("data:{0};base64,{1}",item.ImageDetail.contentType,item.ImageDetail.content64base)">
+                    }
+
+                    @*<span class="card-title"> @item.Model</span>*@
+                    <a class="btn-floating halfway-fab waves-effect waves-light red addToCart" data-itemid="@item.Id"><i class="material-icons">add</i></a>
+                </div>
+                <div class="card-content">
+                    <p>
+                    <p class="searchKeyword"><b>Machine Unit:</b> @item.GroupDetails.GroupName</p>
+                    <p class="searchKeyword"><b>Model:</b> @item.Model</p>
+                    <p class="searchKeyword"><b>Serial:</b> @item.SerialCode</p>
+                    <p class="searchKeyword"><b>Part Code:</b> @item.PartCode</p>
+
+                    @*<p class="searchKeyword"><b>Part Code:</b> @item.Description</p>*@
+                    <p>
+                        <div>
+                            <div class="input-field col s12">
+                                <select class="selectedHours">
+                                    <option value="" selected>Hours</option>
+                                    <option value="500">500 Hours</option>
+                                    <option value="1000">1000 Hours</option>
+                                    <option value="2000">2000 Hours</option>
+                                </select>
+
+                            </div>
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <div class="input-field">
+
+                                    <input class="quantity" placeholder="Quantity" type="text">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </p>
+                    </p>
+
+                    <input type="hidden" value="@String.Format("{0}", item.SerialCode)" />
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+
+
+            $('select').formSelect();
+
+
+
+
+            $("#searchItem").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+
+                console.log(value);
+                $("#productList .productItem .card-content .searchKeyword").filter(function () {
+
+
+                    var currentDom = $(this);
+                    var dom = currentDom.closest('.productItem')
+                    currentDom.each(function () {
+
+                        var currentInnerDom = $(this);
+                        var innerDomParent = currentInnerDom.closest('.productItem')
+                        var children = innerDomParent.find('.searchKeyword')
+                        children.each(function () {
+
+                            if ($(this).val().toLowerCase().indexOf(value) > -1 || $(this).text().toLowerCase().indexOf(value) > -1) {
+
+                                innerDomParent.toggle(true).removeClass('scale-out').addClass('scale-in');
+
+                                return false;
+                            } else {
+                                innerDomParent.removeClass('scale-in').addClass('scale-out').toggle(false);
+                                //innerDomParent.toggle(false);
+                            }
+                        })
+
+                    })
+
+                });
+            });
+
+
+            $('.addToCart').on("click", function () {
+                var domData = $(this).data('itemid');
+                var cartCountDom = $('#cartCount');
+                var cartCountDomValue = cartCountDom.text();
+                var totalHours = $(this).parent().next().find('.selectedHours')
+                var quantity = $(this).parent().next().find('.quantity')
+
+                var selected = totalHours.find(":selected").text();
+
+
+
+                var options = {
+                    url: "@Url.Action("AddItemToCookie")",
+                    method: "POST",
+                    data: { ItemId: domData, hours: parseInt(selected), Quantity: parseInt(quantity.val()) },
+                    datatype: "JSON",
+                    success(data) {
+
+                        if (data.success) {
+                            var cartCount = parseInt(cartCountDomValue);
+                            var total = cartCount + 1;
+                            cartCountDom.text(total);
+                            M.toast({ html: 'New item added' })
+                        } else {
+                            M.toast({ html: 'Adding item goes wrong' })
+                        }
+                    }
+                }
+
+                if (parseInt(selected) && parseInt(quantity.val()) && parseInt(quantity.val()) > 0) {
+                    $.ajax(options);
+                } else {
+                    M.toast({ html: 'Invalid no. of hours and quantity' })
+                }
+              //  M.toast({ html: 'New item added' })
+                event.preventDefault();
+            })
+        })
+
+
+    </script>
+}
+

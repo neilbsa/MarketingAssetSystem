@@ -1,0 +1,392 @@
+﻿@model StockInTransaction
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h5>EDIT: Stock IN</h5>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="form-group input-field">
+                        <label asp-for="Reference"></label>
+                        <input asp-for="Reference" readonly="readonly" for="Reference" class="form-control" />
+                        <span asp-validation-for="Reference" class="helper-text red-text"></span>
+                    </div>
+                </div>
+            </div>
+            <span>Warehouse Detail</span>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+
+                    <div class="form-group input-field">
+                        <label></label>
+                        <input type="hidden" asp-for="WarehouseId" id="whid"/>
+                        <input for="whDetailsId" class="form-control warehouseId validate" value="@(Model.Warehouse == null ? "": Model.Warehouse.WarehouseCode)" />
+                        <span asp-validation-for="WarehouseId" class="helper-text red-text"></span>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+
+                    <div class="form-group input-field">
+                        <label for="whDesc">Warehouse Description</label>
+                        <input readonly="readonly" for="whDesc" id="whDesc" type="text" class="form-control warehouseDescription"  value="@(Model.Warehouse == null ? "":Model.Warehouse.WarehouseDescription)"/>
+                       
+                    </div>
+                </div>
+
+
+            </div>
+            <span>Supplier Details</span>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="form-group input-field">
+                        <input type="hidden" asp-for="ExternalEntityDetails.Id" Id="supplierId" />
+                        <label asp-for="ExternalEntityDetails.EntityCode">Supplier code</label>
+                        <input asp-for="ExternalEntityDetails.EntityCode" for="ExternalEntityDetails.EntityCode" class="form-control supplierCode validate" />
+                        <span asp-validation-for="ExternalEntityDetails.EntityCode" class="helper-text red-text"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="form-group input-field">
+                        <label asp-for="ExternalEntityDetails.CompanyName"></label>
+                        <input asp-for="ExternalEntityDetails.CompanyName" for="ExternalEntityDetails.CompanyName" class="form-control companyName supplierdetails validate" />
+                        <span asp-validation-for="ExternalEntityDetails.CompanyName" class="helper-text red-text"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+
+                    <div class="form-group input-field">
+                        <label asp-for="ExternalEntityDetails.ContactPerson"></label>
+                        <input asp-for="ExternalEntityDetails.ContactPerson" for="ExternalEntityDetails.ContactPerson" class="form-control contactPerson supplierdetails validate" />
+                        <span asp-validation-for="ExternalEntityDetails.ContactPerson" class="helper-text red-text"></span>
+                    </div>
+
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+
+                    <div class="form-group input-field">
+                        <label asp-for="ExternalEntityDetails.EmailAddress"></label>
+                        <input asp-for="ExternalEntityDetails.EmailAddress" for="ExternalEntityDetails.EmailAddress" class="form-control emailAddress supplierdetails validate" />
+                        <span asp-validation-for="ExternalEntityDetails.EmailAddress" class="helper-text red-text"></span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+
+                    <div class="form-group input-field">
+                        <label asp-for="ExternalEntityDetails.Address"></label>
+                        <input asp-for="ExternalEntityDetails.Address" for="ExternalEntityDetails.Address" class="form-control address supplierdetails validate" />
+                        <span asp-validation-for="ExternalEntityDetails.Address" class="helper-text red-text"></span>
+                    </div>
+
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+
+                    <div class="form-group input-field">
+                        <label asp-for="ExternalEntityDetails.ContactNumber"></label>
+                        <input asp-for="ExternalEntityDetails.ContactNumber" for="ExternalEntityDetails.ContactNumber" class="form-control contactNumber supplierdetails validate" />
+                        <span asp-validation-for="ExternalEntityDetails.ContactNumber" class="helper-text red-text"></span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <button type="submit" class="waves-button-input btn"> Submit</button>
+            </div> <hr />
+            <hr />
+            <h3>Items</h3>
+            <hr />
+            <table class="striped" id="groupItem">
+                <thead>
+                    <tr>
+                        <th>
+                            Part Code
+                        </th>
+
+
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Model
+                        </th>
+                        <th>
+                            Quantity
+                        </th>
+                        <th></th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    @if (Model.InventoryDetails != null)
+                    {
+                        foreach (var item in Model.InventoryDetails.Where(x=>x.IsDeleted==false))
+                        {
+                            @Html.Partial("EditNewItem", item);
+                        }
+                    }
+
+
+                </tbody>
+            </table>
+
+        </form>
+        <button type="button" class="btn-floating btn-sm waves-effect waves-light red addNewItem"><i class="material-icons">add</i> </button>
+
+    </div>
+
+</div>
+
+
+
+@section scripts{
+    <script>
+       $(document).ready(function () {
+
+           var productCode = {};
+
+           WarehouseAutoComplete();
+           SupplierAutoComplete();
+           $('#groupItem').on('click', '.removeGroupItem', function () {
+               var item = $(this).parent().parent().remove();
+           })
+
+
+           $('.addNewItem').on('click', function () {
+
+               var options = {
+                   url: "/StockIn/AddNewItem",
+                   datatype:"HTML",
+                   success: function (data) {
+                       RefillAutoCompleteProductCode();
+                       $('#groupItem > tbody').append(data)
+                   }
+               }
+               $.ajax(options);
+           })
+
+
+           function SupplierAutoComplete()
+           {
+             var options = {
+                   url: "/Product/GetSupplier",
+                   datatype: "JSON",
+                    method: "POST",
+                   success: function (data) {
+                       var suppDom = $('.supplierCode');
+                 
+                       var suppCodes = data.reduce(function (o, val) {
+                           o[val] = null;                       
+                           console.log(val);
+                           return o;
+
+                       }, {})
+
+                       console.log(suppCodes);
+                 
+
+                       suppDom.autocomplete({
+                           data: suppCodes,
+
+                       })
+                   },
+                   error: function (data) {
+                       M.toast({ html: data.responseText })
+                   }
+               }
+               $.ajax(options);
+           }
+
+
+           function WarehouseAutoComplete()
+           {
+              
+               var options = {
+                   url: "/Warehouse/GetWarehouses",
+                   datatype: "JSON",
+                    method: "POST",
+                   success: function (data) {
+                       var whDom = $('.warehouseId');            
+ 
+                       var whCode = data.reduce(function (o, val) {
+                           o[val] = null;                       
+                        
+                           return o;
+
+                       }, {})                
+
+                       whDom.autocomplete({
+                           data: whCode,
+
+                       })
+                   },
+                   error: function (data) {
+                       M.toast({ html: data.responseText })
+                   }
+               }
+               $.ajax(options);
+           }
+
+
+
+           function RefillAutoCompleteProductCode() {
+               var options = {
+                   url:"/Product/GetProducts",
+                   dataType: "JSON",
+                   method: "POST",
+                   success: function (data) {
+                       productCode = data;
+                       console.log(data)
+                       var productCode = data.reduce(function (o, val) {
+                           o[val] = null;
+                        
+                           return o;
+                       }, {})   
+                       console.log(productCode)
+                       $('input.detailPartcodeAutoComplete').autocomplete({
+                           data: productCode,
+                       });
+                   }
+               }
+               $.ajax(options);
+           } 
+
+
+           $(document).on('focusout', '.supplierCode', function () {
+
+               var dom = $(this);
+               var domVal = dom.val();
+               var suppId = $('#supplierId');
+               var details = $('.supplierdetails');
+
+               var companyName = $('.companyName');
+               var contactPerson = $('.contactPerson');
+               var address = $('.address');
+               var contactNumber = $('.contactNumber');
+               var emailAddress = $('.emailAddress');
+               //var desc = $('.warehouseDescription');
+               var options = {
+                   url: "/Product/GetSupplierDetails",
+                   method: "POST",
+                   datatype: "JSON",
+                   data: { entityCode: domVal },
+                   success: function (data) {
+                       //details.attr("disabled", "disabled")
+                       console.log(data);
+                       suppId.val(data.id);
+                       contactPerson.val(data.contactPerson);
+                       companyName.val(data.companyName);
+                       address.val(data.address);
+                       contactNumber.val(data.contactNumber);
+                       emailAddress.val(data.emailAddress);
+
+                  
+                       //desc.val(data.warehouseDescription);
+                       M.updateTextFields();
+
+                   }, error: function (data) {
+
+
+                       suppId.val('{00000000-0000-0000-0000-000000000000}');
+                       contactPerson.val('');
+                       companyName.val('');
+                       address.val('');
+                       contactNumber.val('');
+                       emailAddress.val('');
+
+
+
+                       //details.attr("disabled", false);
+                       M.toast({ html: data.responseText });
+
+                   }
+               }
+               $.ajax(options);
+
+           })
+
+           $(document).on('focusout', '.warehouseId', function () {
+             
+               var dom = $(this);
+               var domVal = dom.val();
+               var whId = $('#whid');
+               var desc = $('.warehouseDescription');
+               var options = {
+                   url: "/warehouse/GetWarehouseDetails",
+                   method: "POST",
+                   datatype: "JSON",
+                   data: { whCode: domVal },
+                   success: function (data) {
+
+                       console.log(data);
+                       whId.val(data.id);
+                       desc.val(data.warehouseDescription);
+                       M.updateTextFields();
+
+                   }, error: function (data) {
+                 
+                       M.toast({ html: data.responseText });
+
+                   }
+               }
+               $.ajax(options);
+
+           })
+           $(document).on('focusout','.detailPartcodeAutoComplete',function () {
+               var dom = $(this);
+               var domdata = dom.val();
+               var parentTr = dom.parent().parent().parent()
+               var detailPartId = parentTr.find('.detailPartId')
+               var detailPartDesc = parentTr.find('.detailPartDesc')
+               var detailPartModel = parentTr.find('.detailPartModel')
+
+               var options= {
+                   url: "/Product/GetProductDetail",
+                   datatype: "JSON",
+                   method: "POST",
+                   data: { PartCode : domdata },
+                   success: function (data) {                 
+                    
+                    
+                       detailPartId.val(data.id)
+                       detailPartDesc.val(data.description)
+                       detailPartModel.val(data.model)
+              
+                       M.updateTextFields();
+
+
+                   },
+                   error: function (data) {
+                       dom.val('');
+                       detailPartId.val('')
+                       detailPartDesc.val('')
+                       detailPartModel.val('')
+
+                       M.updateTextFields();
+                       M.toast({ html: data.responseText })
+                      // console.log(data.responseText);
+                   }
+
+
+               }
+               $.ajax(options);
+           })
+        })
+
+
+
+     
+
+    </script>
+}

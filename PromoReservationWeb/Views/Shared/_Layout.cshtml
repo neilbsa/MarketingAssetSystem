@@ -1,0 +1,172 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationAccountModel> SignInManager
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PromoOnlineOrdering</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="@Url.Content("~/lib/bootstrap/dist/css/bootstrap.css")" />
+
+
+
+        <!-- Compiled and minified CSS -->
+        @*<link asp-fallback-href="@Url.Content("~/materialize/css/materialize.min.css")"
+              rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute">*@
+
+        <link href="@Url.Content("~/materialize/css/materialize.min.css")" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"
+              asp-fallback-href="@Url.Content("~/lib/bootstrap/dist/css/bootstrap.min.css")"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              crossorigin="anonymous"
+              integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" />
+
+
+
+        <!-- Compiled and minified CSS -->
+        @*<link asp-fallback-href="@Url.Content("~/materialize/css/materialize.min.css")"
+              rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">*@
+    </environment>
+    <link rel="stylesheet" href="@Url.Content("~/css/site.css")" />
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="nav-wrapper blue darken-4">
+                <a asp-action="Index" asp-controller="Home" class="brand-logo center" ><img src="~/images/Web Logo-01.png" style="max-width:200px; align-content:center;"/></a>
+                <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
+
+                <ul class="right hide-on-med-and-down">
+                    <li> <a asp-action="Index" asp-controller="Home">Products</a></li>
+                    <li>
+
+                        <a asp-action="MyCart" asp-controller="Home">
+                            <div class="row">
+                                <i class="material-icons">shopping_cart</i><div id="cartCount" class="badge blue lighten-2 notification-badge">
+                                    @ViewBag.cartCount
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <partial name="_LoginPartial" />
+                </ul>
+            </div>
+        </nav>
+
+        <ul id="slide-out" class="sidenav">
+            <li>
+                <div class="user-view">
+
+                    <a href="#name"><span class="black-text name">Welcome !</span></a>
+                    <a href="#email"><span class="black-text email">@User.Identity.Name</span></a>
+                </div>
+            </li>
+            <li>
+                <a asp-action="MyCart" asp-controller="Home">
+                    My Cart <div id="cartCount" class="badge blue lighten-2 new">
+                        @ViewBag.cartCount
+                    </div>
+                </a>
+            </li>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <li>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </li>
+            }
+            else
+            {
+                <li><a asp-area="Identity" asp-page="/Account/Login">Log in</a></li>
+            }
+
+
+
+        </ul>
+
+
+
+    </header>
+    <div style="margin-top:20px">
+
+    </div>
+    <div>
+        @*<partial name="_CookieConsentPartial" />*@
+        <main role="main" class="container">
+            @RenderBody()
+        </main>
+    </div>
+    @*<footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; 2019 - PromoOnlineOrdering - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>*@
+
+    <environment include="Development">
+        <script src="@Url.Content("~/lib/jquery/dist/jquery.js")"></script>
+        <script src="@Url.Content("~/materialize/js/materialize.min.js")"></script>
+        @*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>*@
+    </environment>
+    <environment exclude="Development">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+                asp-fallback-src="@Url.Content("~/lib/jquery/dist/jquery.min.js")"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
+        </script>
+        @*<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"
+                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                    crossorigin="anonymous"
+                    integrity="sha256-E/V4cWE4qvAeO5MOhjtGtqDzPndRO1LBk8lJ/PR7CA4=">
+            </script>*@
+        <!-- Compiled and minified JavaScript -->
+        <script asp-fallback-src="@Url.Content("~/materialize/js/materialize.min.js")"
+                asp-fallback-test="window.jQuery"
+                src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+    </environment>
+    <script src="@Url.Content("~/js/site.js")" asp-append-version="true"></script>
+    <script>
+        //document.addEventListener('DOMContentLoaded', function () {
+        //    var elems = document.querySelectorAll('.sidenav');
+        //    var instances = M.Sidenav.init(elems, options);
+        //});
+
+        // Or with jQuery
+
+        $(document).ready(function () {
+            $('.sidenav').sidenav();
+
+      
+
+       
+
+
+        });
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

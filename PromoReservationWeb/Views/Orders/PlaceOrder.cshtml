@@ -1,0 +1,20 @@
+﻿@model OrderHeaderDetails
+@{
+    ViewData["Title"] = "PlaceOrder";
+}
+
+<div class="row">
+    <div class="col s12 m12 s12">
+        <div class="card blue">
+            <div class="card-content white-text">
+                <span class="card-title">Order placed</span>
+                <p>
+                  You ordered placed. please take note for your Confirmation code :<b> @Model.ConfirmationCode.ToUpper()</b>
+                </p>
+            </div>
+            <div class="card-action">
+                <a asp-action="Index" asp-controller="Home">Back to product List</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,129 @@
+﻿@model ICollection<ProductMasterWithHour>
+@{
+    ViewData["Title"] = "MyCart";
+}
+
+<h3>My Cart</h3>
+
+<table class="striped highlight">
+    <thead>
+        <tr>
+            <th>
+                Model
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                SerialCode
+            </th>
+            <th>
+                Part Code
+            </th>
+            <th>
+                Hours
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Model
+                    </td>
+                    <td>
+                        @item.Description
+                    </td>
+                    <td>
+                        @item.SerialCode
+                    </td>
+                    <td>
+                        @item.PartCode
+                    </td>
+                    <td>
+                        @item.Hours
+                    </td>
+                    <td>
+                        @item.Quantity
+                    </td>
+                    <td>
+                        <a class="btn-floating btn-small waves-effect waves-light red deleteItem" data-itemid="@item.Id"><i class="material-icons">remove_circle_outline</i></a>
+                    </td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
+<div class="row">
+    &nbsp;
+</div>
+<div class="row">
+    &nbsp;
+</div>
+
+
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="row ">
+        <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 right-align">
+            <a asp-action="ProceedCheckout" id="proceedCheckOut" asp-controller="Orders" class=" btn waves-effect waves-light">
+                Proceed to order
+                <i class="material-icons right">send</i>
+            </a>
+        </div>
+    </div>
+}
+
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+
+            $('.deleteItem').on('click', function () {
+                var parentDom = $(this).parent().parent();
+                var itemId = $(this).data('itemid');
+                var cartCountDom = $('#cartCount');
+                var options = {
+                    url: "@Url.Action("DeleteToCart")",
+                    data: { Id: itemId },
+                    method: "DELETE",
+                    success: function () {                      
+                        console.log(parentDom)
+                        var cartCountDomValue = cartCountDom.text();
+                        var cartCount = parseInt(cartCountDomValue);
+                        var total = cartCount - 1;
+                        cartCountDom.text(total);
+
+                        if (total <= 0) {
+                            $('#proceedCheckOut').hide();
+                        }
+                        parentDom.remove();
+                        M.toast({ html: 'Item Removed' })
+                    }
+                }
+                $.ajax(options);
+            })
+
+
+
+
+
+
+        })
+    </script>
+
+
+
+
+}

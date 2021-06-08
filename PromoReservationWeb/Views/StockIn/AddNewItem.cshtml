@@ -1,0 +1,46 @@
+﻿@model InventoryDetail
+
+@{ 
+    Layout = null;
+}
+<tr>
+
+    @using (Html.BeginCollectionItem("InventoryDetails"))
+    {
+
+        <td>
+            <input type="hidden" asp-for="ProductMasterId" class="detailPartId" />
+            <div class="form-group input-field">
+                <label asp-for="ProductDetail.PartCode"></label>
+                <input asp-for="ProductDetail.PartCode" for="ProductDetail.PartCode" class="form-control detailPartcodeAutoComplete validate" />
+                <span asp-validation-for="ProductDetail.PartCode" class="helper-text red-text"></span>
+            </div>
+        </td>
+        <td>
+            <div class="form-group input-field">
+                <label asp-for="ProductDetail.Description"></label>
+                <input asp-for="ProductDetail.Description" disabled for="ProductDetail.Description" class="form-control detailPartDesc validate" />
+                <span asp-validation-for="ProductDetail.Description" class="helper-text red-text"></span>
+            </div>
+        </td>
+        <td>
+            <div class="form-group input-field">
+                <label asp-for="ProductDetail.Model"></label>
+                <input asp-for="ProductDetail.Model" disabled for="ProductDetail.Model" class="form-control detailPartModel validate" />
+                <span asp-validation-for="ProductDetail.Model" class="helper-text red-text"></span>
+            </div>
+        </td>
+        <td>
+            <div class="form-group input-field">
+                <label asp-for="Quantity"></label>
+                <input asp-for="Quantity" for="Quantity" class="form-control validate" />
+                <span asp-validation-for="Quantity" class="helper-text red-text"></span>
+            </div>
+        </td>
+        <td>
+            <a class="btn-floating btn-sm waves-effect waves-light red removeGroupItem"><i class="material-icons">delete</i></a>
+        </td>
+
+
+    }
+</tr>

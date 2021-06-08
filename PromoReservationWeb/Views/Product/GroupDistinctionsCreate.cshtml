@@ -1,0 +1,27 @@
+﻿@model GroupProductDistinction
+
+@{
+    Layout = null;
+}
+<tr>
+
+    @using (Html.BeginCollectionItem("Distinctions"))
+    {
+       
+    <td>
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group input-field">
+            <label asp-for="StringDesc1"></label>
+            <input asp-for="StringDesc1" for="StringDesc1" class="form-control validate" />
+            <span asp-validation-for="StringDesc1" class="helper-text red-text"></span>
+        </div>
+    </td>
+        <td>
+            <a class="btn-floating btn-sm waves-effect waves-light red removeGroupItem"><i class="material-icons">delete</i></a>
+        </td>
+
+
+    }
+</tr>
+
+

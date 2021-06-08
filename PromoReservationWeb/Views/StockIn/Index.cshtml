@@ -1,0 +1,60 @@
+﻿@model ICollection<StockInTransaction>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h4>Stock In transaction</h4>
+<table class="striped">
+    <thead>
+        <tr>
+            <th>
+                Reference
+            </th>
+            <th>
+                CreatedDate
+            </th>
+            <th>
+                CreateUser
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @item.Reference
+            </td>
+            <td>
+                @item.CreatedDate
+            </td>
+            <td>
+                @item.CreateUser
+            </td>
+            <td>
+                @item.Status
+            </td>
+            <td>
+
+
+                <a class="btn-floating btn-sm waves-effect waves-light blue" asp-action="Edit" asp-route-Id="@item.Id"><i class="material-icons">edit</i></a>
+
+                <a class="btn-floating btn-sm waves-effect waves-light red"><i class="material-icons">delete</i></a>
+
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large waves-effect waves-light red" asp-action="Create">
+        <i class="large material-icons">mode_edit</i>
+    </a>
+</div>
+
